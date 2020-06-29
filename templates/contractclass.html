@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+<h3></h3>
+{% endblock %}
+{% block title %}
+合同分类
+{% endblock %}
+{% block content %}
+<div class="container" style="margin-top: 100px;">
+<div class="row col-md-6">
+    <div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">合同类型查看</h3>
+  </div>
+  <div class="panel-body">
+<button class="btn btn-primary" id="classadd">新增</button>
+      <hr>
+  <table class="table table-bordered">
+  <thead>
+  <tr>
+      <th>序号</th>
+      <th>分类标题</th>
+  </tr>
+  </thead>
+      <tbody>
+      {% for classes in classes_list %}
+      <tr>
+      <td>{{ forloop.counter }}</td>
+      <td>{{ classes.title }}</td>
+      </tr>
+      {% endfor %}
+
+      </tbody>
+</table>
+  </div>
+</div>
+</div>
+</div>
+
+
+    <div class="add-back hide">
+        <div class="add-cover">
+            <div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">添加分类</h3>
+  </div>
+  <div class="panel-body">
+      <div><label for="title">分类标题
+          <input name="title" type="text" id="classtitle">
+      </label>
+      </div>
+      <div>
+          <button id="add-button" class="btn btn-primary">确认</button>
+            <button id="cancel-button" class="btn btn-danger">关闭</button>
+          <span class="danger" id="add-info"></span>
+      </div>
+  </div>
+</div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block css %}
+    <style>
+    .add-back{
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: grey;
+        {#opacity:0.8;#}
+        position: fixed;
+        z-index: 1;
+    }
+    .add-cover{
+        position: fixed;
+        width: 500px;
+        height: 300px;
+        border-radius: 5%;
+        right:0;
+        bottom: 0;
+        top:40%;
+        left:37%;
+        {#padding-left: -500px;#}
+        {#padding-top:-150px;#}
+        z-index:2;
+    }
+    </style>
+{% endblock %}
+
+{% block script %}
+    <script>
+    $("#classadd").on("click",function () {
+        $(".add-back").removeClass("hide");
+    });
+    $("#cancel-button").on('click',function () {
+        $(".add-back").addClass("hide");
+    });
+    //先判断当前添加的分类是不是已经存在
+    //$("#title").blur(function () {
+
+    //});
+
+    $("#add-button").on('click',function () {
+        var title = $("#classtitle").val();
+        console.log(123);
+            //如果有，发送数据
+        $.ajax({
+                url:'/classadd/',
+                type:'post',
+                data:{
+                    "title":title,
+                },
+                success:function (data) {
+                    if(data.status){
+                       $("#add-info").text("添加成功")
+                    }
+                }
+            })
+
+    })
+    </script>
+{% endblock %}
+
+

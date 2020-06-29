@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% block breadcrumb %}
+    <h3></h3>
+{% endblock %}
+{% block title %}
+添加用户
+{% endblock %}
+{% block content %}
+    <div class="container" style="margin-top: 100px">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">添加用户</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label for="id_username"
+                                       class="col-sm-2 control-label">{{ form_obj.username.label }}</label>
+                                <div class="col-sm-10">
+                                    {{ form_obj.username }}
+                                    <span class="help-block">{{ form_obj.username.error_messages.0 }}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_password"
+                                       class="col-sm-2 control-label">{{ form_obj.password.label }}</label>
+                                <div class="col-sm-10">
+                                    {{ form_obj.password }}
+                                    <span class="help-block">{{ form_obj.password.error_messages.0 }}</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="id_phone" class="col-sm-2 control-label">{{ form_obj.phone.label }}</label>
+                                <div class="col-sm-10">
+                                    {{ form_obj.phone }}
+                                    <span class="help-block">{{ form_obj.phone.error_messages.0 }}</span>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button id="reg-btn" type="button" class="btn btn-primary">确认</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+<script>
+    //发送注册数据
+    $("#reg-btn").on("click", function () {
+        var username = $("#id_username").val();
+        var password = $("#id_password").val();
+        //var name = $("#id_name").val();
+        var phone = $("#id_phone").val();
+        //var admin = $("#id_admin").val();
+        //var email = $("#id_email").val();
+        //var group = $("#id_group").val();
+        //var depart = $("#id_depart").val();
+        $.ajax({
+            url: "/reg/",
+            type: "post",
+            data: {
+                "username": username,
+                "password": password,
+                //"name": name,
+                "phone": phone,
+               // "admin": admin,
+               // "email": email,
+               // "depart":depart,
+               // "group":group
+            },
+            success: function (data) {
+                if (data.status) {
+                    $.each(data.msg, function (k, v) {
+                        console.log(123);
+                        $("#id_" + k).next("span").text(v).parent().parent().addClass("has-error")
+                    })
+                }
+                else{
+                    alert("注册成功！");
+                    //location.href=data.msg
+                }
+            }
+        })
+    });
+    //校验用户名唯一性
+    $("#id_username").on("blur",function () {
+        var username = $(this).val();
+        $.ajax({
+            url:"/check_user/",
+            type:"post",
+            data:{
+                "username":username,
+                "csrfmiddlewaretoken":$("[name='csrfmiddlewaretoken']").val()
+            },
+            success:function (data) {
+                if(data.status){
+                    $("#id_username").next("span").text(data.msg).parent().parent().addClass("has-error")
+                }
+            }
+        })
+    });
+    //获取焦点事件
+    $("input").on("focus",function () {
+        $(this).next().text("").parent().parent().removeClass("has-error");
+    });
+    //获取部门数据
+    $("#id_group").on("change",function () {
+        var group_id = $("#id_group").val();
+        $("#id_depart").text("");
+        $.ajax({
+            url:"/get_depart/",
+            type:"post",
+            data:{"group_id":group_id},
+            success:function (data) {
+                console.log(data.msg);
+                $.each(data.msg,function (k,v) {
+                    //console.log(k);
+                    console.log(v["pk"]);
+                    console.log(v["title"]);
+                    var option = "<option value="+v["pk"]+">"+v["title"]+"</option>";
+                    $("#id_depart").append(option)
+                })
+            }
+        })
+    })
+    //
+
+</script>
+{% endblock %}

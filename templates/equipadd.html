@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% block title %}
+    添加设备
+{% endblock %}
+{% block breadcrumb %}
+    <h3>添加设备</h3>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">添加新设备</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">设备类型:</label>
+                                <div class="col-sm-10">
+                                    <select name="equipclass" id="inputEmail3">
+                                        <option value="">-----</option>
+                                        {% for foo in class_list %}
+                                            <option value="{{ foo.pk }}">{{ foo.title }}</option>
+                                        {% endfor %}
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">设备名称</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="equipname" id="inputPassword3"
+                                           placeholder="设备名称">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">品牌</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="equipbrand" id="inputPassword3"
+                                           placeholder="品牌">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">型号</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="equiptypes" id="inputPassword3"
+                                           placeholder="型号">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">出厂编号</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="equipsn" id="inputPassword3"
+                                           placeholder="出厂编号/SN码">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">采购日期</label>
+                                <div class="col-sm-3">
+                                    <input type="date" class="form-control" name="equipdate" id="inputPassword3">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">使用部门</label>
+                                <div class="col-sm-10">
+                                    <select name="equipdepart" id="inputPassword3">
+                                        <option value="">-----</option>
+                                        {% for depart in depart_list %}
+                                            <option value="{{ depart.pk }}">{{ depart.title }}</option>
+                                        {% endfor %}
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">单价（元）</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="equipprice" id="inputPassword3"
+                                           placeholder='价格'>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">保修期(年)</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="equipwarranty" id="inputPassword3"
+                                           placeholder='保修期'>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">供应商</label>
+                                <div class="col-sm-10">
+                                    <select name="equipsupplier" id="inputPassword3">
+                                        <option value="">-----</option>
+
+                                        {% for supplier in supplier_list %}
+                                            <option value="{{ supplier.pk }}">{{ supplier.title }}</option>
+                                        {% endfor %}
+
+                                    </select>
+
+                                </div>
+                            </div>
+
+                        <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">合同上传</label>
+                                <div class="col-sm-10">
+                                    <input type="file" id="inputPassword3" name="equipcontract">
+                                </div>
+                            </div>
+
+                          <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">备注</label>
+                                <div class="col-sm-10">
+                                    <textarea name="equipremark" id="inputPassword3" cols="30" rows="5"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <input type="submit" class="btn btn-primary" value="确定增加">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

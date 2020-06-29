@@ -1,0 +1,108 @@
+body{
+    margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+    background: #999999;
+	/*background: url(/static/img/1.jpg)  no-repeat center 0;*/
+    background-size: cover;
+}
+/*导航条样式*/
+.navigate{
+    color:whitesmoke;
+    background-color: #3c8dbc;
+    height: 50px;
+    width:100%;
+    /*margin-top: 0;*/
+    top:0;
+    line-height: 50px;
+    position:fixed;
+}
+.main{
+    width: 80%;
+    margin-left:10%;
+    right:10%;
+}
+.nav-left>span{
+    font-size: 20px;
+}
+.fl{
+    float:left;
+}
+.fr{
+    float:right;
+}
+a{
+    text-decoration: none;
+}
+span>a{
+    color:ghostwhite;
+}
+ul {
+    list-style-type: none;
+}
+
+/*左侧菜单样式*/
+.left{
+    /*background-color: #83848F;*/
+    width:15%;
+    margin-left:10%;
+    top:50px;
+    bottom:0;
+    position:fixed;
+    overflow: auto;
+    text-align: center;
+}
+.left-img>img{
+    margin-top: 20px;
+    height: 80px;
+    width: 80px;
+    border-radius:50%;
+
+
+}
+.menu-title{
+    /*background-color: #3c8dbc;*/
+    padding-top: 5px;
+    font-size: 20px;
+}
+span{
+    padding-left: 5px;
+}
+
+/*内容区样式*/
+.right-content{
+    /*margin-right: 10%;*/
+    right:10%;
+    top:50px;
+    bottom:0;
+    left:25%;
+    padding: 10px;
+    position: fixed;
+    overflow: auto;
+    /*background-color: #3c8dbc;*/
+}
+
+/*修改密码模态框*/
+.setpassword-cover {
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            position: absolute;
+            background-color: slategrey;
+            opacity: 0.8;
+            z-index: 1;
+            color: black;
+        }
+
+.setpassword-model {
+            height: 300px;
+            width: 500px;
+            position: absolute;
+            border-radius: 5%;
+            z-index: 2;
+            top: 50%;
+            left: 50%;
+            margin-top: -150px;
+            margin-left: -250px;
+        }

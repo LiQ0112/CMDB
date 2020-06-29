@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Title
+
+    {% endblock %}</title>
+    <link rel="stylesheet" href="/static/base.css">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <script src="/static/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="/static/adminlet-2.4.10/bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/static/adminlet-2.4.10/dist/css/AdminLTE.min.css">
+
+    {% block css %}
+
+    {% endblock %}
+</head>
+<body>
+<!--导航条开始-->
+<div class="navigate">
+    <div class="main">
+        <div class="nav-left fl">
+            <span>信息资产管理</span>
+        </div>
+        <div class="nav-right fr">
+            <span>{{ request.user.username }}</span><span>|</span>
+            <span id="timeShow"></span><span>|</span>
+            <span><a href="/logout/">注销</a></span><span>|</span>
+            <span class="reset-password">修改密码</span>
+        </div>
+    </div>
+
+</div>
+<!--导航条结束-->
+
+<!--左侧菜单-->
+<div class="left">
+    <div class="left-img">
+        <img src="/static/img/8.jpg" alt="">
+    </div>
+    <div class="left-menu">
+        <div class="menu-title">
+            <ul class="sidebar-menu" data-widget="tree">
+                <li><a>设备管理</a></li>
+
+            </ul>
+        </div>
+        <div class="menu-items hide">
+            <ul>
+                {#                <li><a href="/index/equipinfo">基础信息</a></li>#}
+                <li><a href="/index/equipadd" target="_blank">新增设备</a></li>
+                <li><a href="/index/equipmaintain" target="_blank">维修登记</a></li>
+                <li><a href="/index/equipallot" target="_blank">设备调拔登记</a></li>
+                <li><a href="/index/euipscrap" target="_blank">设备报废登记</a></li>
+            </ul>
+        </div>
+
+        <div class="menu-title">
+            <ul class="sidebar-menu" data-widget="tree">
+              <li><a>厂商管理</a></li>
+
+            </ul>
+        </div>
+        <div class="menu-items hide">
+             <ul>
+                <li><a href="/index/supplerinfo" target="_blank">基础信息</a></li>
+                <li><a href="/index/suppleradd" target="_blank">新建厂商</a></li>
+{#                <li><a href="">厂商维护</a></li>#}
+{#                <li><a href="">设备报废登记</a></li>#}
+            </ul>
+        </div>
+
+        <div class="menu-title">
+              <ul class="sidebar-menu" data-widget="tree">
+              <li><a>合同管理</a></li>
+
+            </ul>
+        </div>
+        <div class="menu-items hide">
+               <ul>
+                <li><a href="/index/contractlist" target="_blank">合同查询</a></li>
+                <li><a href="/index/contractclass" target="_blank">合同类型维护</a></li>
+                <li><a href="/index/constractadd" target="_blank">新增合同</a></li>
+{#                <li><a href="">设备报废登记</a></li>#}
+            </ul>
+        </div>
+
+        <div class="menu-title">
+           <ul class="sidebar-menu" data-widget="tree">
+              <li><a>信息查询</a></li>
+
+            </ul>
+        </div>
+        <div class="menu-items hide">
+            <ul>
+                <li><a href="/index/equipinfo" target="_blank">设备资料查询</a></li>
+                <li><a href="/index/maintaininfo" target="_blank">设备维修查询</a></li>
+{#                <li><a href="" target="_blank">设备调拔查询</a></li>#}
+{#                <li><a href="" target="_blank">设备报废查询</a></li>#}
+{#                <li><a href="" target="_blank">设备报废登记</a></li>#}
+            </ul>
+        </div>
+
+        <div class="menu-title">
+            <ul class="sidebar-menu" data-widget="tree">
+{#              <li><a>电子价格牌</a></li>#}
+
+            </ul>
+        </div>
+        <div class="menu-items hide">
+            <ul>
+                <li><a href="">调拔登记</a></li>
+                <li><a href="">调拔查询</a></li>
+                <li><a href="">门店维修登记</a></li>
+                <li><a href="">门店维修查询</a></li>
+                <li><a href="">售后登记</a></li>
+                <li><a href="">售后查询</a></li>
+                <li><a href="">价格牌台账</a></li>
+{#                <li><a href="">设备报废登记</a></li>#}
+            </ul>
+        </div>
+
+         <div class="left-menu">
+            <ul class="sidebar-menu" data-widget="tree">
+{#              <li><a>辅助设置</a></li>#}
+<li class="menu-title"><a href="/reg/" target="_blank">添加用户</a></li>
+            </ul>
+        </div>
+{#        <div class="menu-items hide">#}
+{#            <ul>#}
+{#                <li><a href="/reg/" target="_blank">添加用户</a></li>#}
+{#                <li><a href="" target="_blank">用户维护</a></li>#}
+{#                <li><a href="" target="_blank">机构管理</a></li>#}
+{#                <li><a href="" target="_blank">部门管理</a></li>#}
+{#                <li><a href="" target="_blank">关于我们</a></li>#}
+{#                <li><a href="" target="_blank">设备报废登记</a></li>#}
+{#            </ul>#}
+{#        </div>#}
+    </div>
+</div>
+<!--左侧结束-->
+
+<!--修改密码-->
+<div class="setpassword-cover hide">
+    <div class="setpassword-model">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">修改密码</h3>
+            </div>
+            <div class="panel-body">
+
+
+                <div class="form-group" style="padding: 20px">
+                    <label for="ori-password" class="col-sm-3 control-label" style="margin-top: 10px">原密码</label>
+                    <div class="col-sm-9">
+                        <input type="password" class="form-control" id="ori-password" placeholder="原密码">
+                        <span></span>
+                    </div>
+                </div>
+
+                <div class="form-group" style="padding: 20px">
+                    <label for="new-password" class="col-sm-3 control-label" style="margin-top: 10px">新密码</label>
+                    <div class="col-sm-9">
+                        <input type="password" class="form-control" id="new-password" placeholder="新密码">
+                    </div>
+                </div>
+
+                <div class="form-group" style="padding: 20px">
+                    <label for="con-password" class="col-sm-3 control-label" style="margin-top: 10px">确认密码</label>
+                    <span></span>
+                    <div class="col-sm-9">
+                        <input type="password" class="form-control" id="con-password" placeholder="确认密码">
+                        <span></span>
+                    </div>
+                </div>
+
+                <div class="form-group" id="model-button" style="padding: 20px;margin-left: 100px">
+                    <button class="btn-primary btn" id="con-button">
+                        确认
+                    </button>
+                    <button class="btn-default btn" id="cancel-button">
+                        取消
+                    </button>
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--修改密码结束-->
+<!--内容区-->
+<div class="right-content">
+
+    {% block content %}
+
+    {% endblock %}
+</div>
+
+<script>
+    //左侧点击事件
+    $(".sidebar-menu li a").on('click',function () {
+        $(this).parent().parent().parent().next(".menu-items").toggleClass("hide");
+    });
+    //时间
+    var t = null;
+
+    t = setTimeout(time);//开始执行
+
+    function time() {
+
+        clearTimeout(t);//清除定时器
+
+        dt = new Date();
+
+        var y = dt.getYear() + 1900;
+
+        var mm = dt.getMonth() + 1;
+
+        var d = dt.getDate();
+
+        var weekday = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+
+        var day = dt.getDay();
+
+        var h = dt.getHours();
+
+        var m = dt.getMinutes();
+
+        var s = dt.getSeconds();
+
+        if (h < 10) {
+            h = "0" + h;
+        }
+
+        if (m < 10) {
+            m = "0" + m;
+        }
+
+        if (s < 10) {
+            s = "0" + s;
+        }
+
+        document.getElementById("timeShow").innerHTML = + y + "年" + mm + "月" + d + "日" +'/'+ weekday[day];
+        //document.getElementById("timeShow1").innerHTML = y + "年" + mm + "月" + d + "日";
+
+        t = setTimeout(time, 1000); //设定定时器，循环执行
+    }
+
+    //定义变量，判断原密码的正确性
+    var oldpasswordistrue = true;
+    //显示模态框
+    $(".reset-password").on("click", function () {
+        $(".setpassword-cover").removeClass("hide")
+    });
+    //关闭模态框
+    $("#cancel-button").on("click", function () {
+        $(".setpassword-cover").addClass("hide")
+    });
+
+    var ori = $("#ori-password");
+    //绑定失去焦点事件，校验原密码的正确性
+    ori.on("blur", function () {
+        var ori_password = ori.val();
+        $.ajax({
+            url: "/check_password/",
+            type: "post",
+            data: {
+                "ori_password": ori_password,
+            },
+            success: function (data) {
+                if (data.status) {
+                    ori.next("span").text(data.msg).parent().addClass("has-error");
+
+                } else {
+                    oldpasswordistrue = false
+                }
+            }
+        })
+    });
+    //原密码栏绑定获取焦点事件
+    ori.on("focus", function () {
+        $(this).next("span").text("").parent().removeClass("has-error");
+    });
+    //修改密码，点击确认事件
+    $("#con-button").on("click", function () {
+        console.log(222);
+        var con_pass = $("#con-password");
+        var old_password = ori.val();
+        var new_password = $("#new-password").val();
+        var con_password = con_pass.val();
+        console.log(oldpasswordistrue);
+        //先判断两次密码是否一致，如果不一致，则弹出错误
+        //console.log(new_password === con_password);
+        if (new_password !== con_password) {
+            //两次密码不相等
+            console.log("两次密码不相等");
+            con_pass.next("span").text("两次密码不一致，请重新输入！").parent().parent().addClass("has-error");
+        } else if (new_password.length < 6) {
+            //密码长度不够
+            console.log("密码长度不够");
+            con_pass.next("span").text("密码长度不能少于6位！").parent().parent().addClass("has-error");
+        } else if (oldpasswordistrue) {
+            console.log("原密码不对");
+            ori.next("span").text("原密码不对，请重新输入").parent().addClass("has-error");
+        } else {
+            console.log("校验通过");
+            //校验通过，向后端发送数据
+            $.ajax({
+                url: "/set_password/",
+                type: "post",
+                data: {
+                    "new_password": new_password,
+                    "old_password": old_password,
+                },
+                success: function (data) {
+                    if (data.status) {
+                        alert(data.msg + "请重新登陆！");
+                        // $("#model-button").append(suceessspan);
+                        window.location.reload();
+                    } else {
+                        ori.next("span").text(data.msg).parent().addClass("has-error");
+                    }
+
+
+                }
+            })
+        }
+
+    });
+</script>
+{% block script %}
+
+{% endblock %}
+</body>
+</html>

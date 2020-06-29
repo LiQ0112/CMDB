@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+    <h3></h3>
+{% endblock %}
+{% block title %}
+新增合同
+{% endblock %}
+{% block content %}
+
+    <div class="container" style="margin-top: 100px">
+        <div class="row col-md-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">新增合同</h3>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="constractclass" class="col-sm-2 control-label">合同类别</label>
+                            <div class="col-sm-10">
+                                <select name="constractclass" id="constractclass">
+                                    <option value="">-----</option>
+                                    {% for classes in classes_list %}
+                                        <option value="{{ classes.pk }}">{{ classes.title }}</option>
+                                    {% endfor %}
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="supplier" class="col-sm-2 control-label">合作厂商</label>
+                            <div class="col-sm-10">
+                                <select name="supplier" id="supplier">
+
+                                    <option value="">-----</option>
+                                    {% for supplier in supplier_list %}
+                                        <option value="{{ supplier.pk }}">{{ supplier.title }}</option>
+                                    {% endfor %}
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="constrattitle" class="col-sm-2 control-label">合同标题</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="constrattitle" id="constrattitle"
+                                       placeholder="合同标题">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="constractdate" class="col-sm-2 control-label">签订日期</label>
+                            <div class="col-sm-3">
+                                <input type="date" class="form-control" name="constractdate" id="constractdate"
+                                >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="constractperson" class="col-sm-2 control-label">经办人</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="constractperson" id="constractperson"
+                                       placeholder="经办人">
+                            </div>
+                        </div>
+
+{#                      <div class="form-group">#}
+{#                            <label for="contractfile" class="col-sm-2 control-label">合同附件</label>#}
+{#                            <div class="col-sm-10">#}
+{#                                <input type="file" class="form-control" name="contractfile" id="contractfile"#}
+{#                                       >#}
+{#                            </div>#}
+{#                        </div>#}
+
+                    <div class="form-group">
+                                <label for="contractfile" class="col-sm-2 control-label">合同附件</label>
+                                <div class="col-sm-10">
+                                    <input type="file" id="contractfile" name="contractfile">
+                                </div>
+                            </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary">确认上传</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

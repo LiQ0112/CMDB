@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+    <h3></h3>
+{% endblock %}
+{% block title %}
+增加分类
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row col-md-8">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">新建厂商资料</h3>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" method="post">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">供应商名称</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="title" class="form-control" id="inputEmail3" placeholder="供应商名称">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="linkman" class="col-sm-2 control-label">联系人</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="linkman" class="form-control" id="linkman" placeholder="联系人">
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label for="phone" class="col-sm-2 control-label">联系电话</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="phone" class="form-control" id="phone" placeholder="联系电话">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="address" class="col-sm-2 control-label">通信地址</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="address" class="form-control" id="address" placeholder="通信地址">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success">确认添加</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+<h3></h3>
+{% endblock %}
+{% block title %}
+合同信息
+{% endblock %}
+{% block content %}
+<div class="container">
+<div class="row">
+    <div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">合同列表</h3>
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped">
+<thead>
+<tr>
+    <th>序号</th>
+    <th>合同类别</th>
+    <th>标题</th>
+    <th>厂商</th>
+    <th>签订时间</th>
+    <th>签订人</th>
+    <th>合同附件</th>
+</tr>
+</thead>
+        <tbody>
+        {% for contract in contract_list %}
+        <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ contract.classes.title }}</td>
+        <td>{{ contract.title }}</td>
+        <td>{{ contract.supplier.title }}</td>
+        <td>{{ contract.date }}</td>
+        <td>{{ contract.person }}</td>
+        <td>{{ contract.contractfile }}</td>
+        </tr>
+        {% endfor %}
+
+        </tbody>
+</table>
+  </div>
+</div>
+</div>
+</div>
+{% endblock %}

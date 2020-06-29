@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+<h3></h3>
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+<form action="">
+                <label for="">选择查询条件
+                <select class="list-condition" name="list-condition" id="">
+                    <option value="">-----</option>
+                    <option value="1">按使用部门查询</option>
+                    <option value="2">按类别查询</option>
+                    <option value="3">按出厂编号查询</option>
+                </select>
+            </label>
+                <label for="" class="depart-select hide">选择部门：
+                <select name="list-condition" id="depart-select">
+                    <option value="">-----</option>
+                    {% for depart in depart_list %}
+                        <option value="{{ depart.pk }}">{{ depart.title }}</option>
+                    {% endfor %}
+
+                </select>
+            </label>
+
+            <label for="" class="class-select hide">选择分类：
+                <select name="list-condition" id="class-select">
+                    <option value="">-----</option>
+                    {% for classes in classes_list %}
+                        <option value="{{ classes.pk }}">{{ classes.title }}</option>
+                    {% endfor %}
+
+                </select>
+            </label>
+
+                <label for="" class="sn hide">出厂编号：
+                    <input type="text" id="sn" placeholder="SN/出厂编码">
+                </label>
+
+
+                <label for="">
+                    <input type="button" id="list-button" value="查询">
+                </label>
+            </form>
+<div class="row col-md-11">
+    <div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">设备维修记录查询</h3>
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped">
+  <thead>
+  <tr>
+      <th>序号</th>
+      <th>设备类型</th>
+      <th>使用部门</th>
+      <th>设备名称</th>
+      <th>出厂编号</th>
+      <th>维修日期</th>
+      <th>故障描述</th>
+      <th>维修方式</th>
+      <th>维修结论</th>
+      <th>维修费用</th>
+  </tr>
+  </thead>
+        <tbody>
+{% for maintain in maintain_list %}
+<tr>
+<td>{{ forloop.counter }}</td>
+<td>{{ maintain.classes.title }}</td>
+<td>{{ maintain.depart.title }}</td>
+<td>{{ maintain.name }}</td>
+<td>{{ maintain.SN }}</td>
+<td>{{ maintain.date|date:'Y-m-d' }}</td>
+<td>{{ maintain.error_description }}</td>
+{#<td><textarea name="" id="" cols="10" rows="2" readonly="readonly">{{ maintain.error_description }}</textarea></td>#}
+<td>{{ maintain.get_service_type_display }}</td>
+<td>{{ maintain.service_result }}</td>
+<td>{{ maintain.service_cost }}</td>
+</tr>
+{% endfor %}
+
+        </tbody>
+</table>
+  </div>
+</div>
+</div>
+</div>
+
+
+{% endblock %}
+{% block script %}
+    <script>
+    var depart_select =  $(".depart-select");
+    var class_select =  $(".class-select");
+    var sn =  $(".sn");
+    var list_conditon = $(".list-condition");
+    list_conditon.on('change',function () {
+        depart_select.addClass('hide');
+        class_select.addClass('hide');
+        sn.addClass('hide');
+        $("#depart-select").val('');
+        $("#class-select").val('');
+        $("#sn").val();
+        var num = $(this).val();
+        console.log(num);
+        console.log(typeof num);
+        //console
+        if(num==='1'){
+            $(".depart-select").removeClass('hide');
+        }
+        else if(num==='2'){
+             $(".class-select").removeClass('hide');
+        }else if(num==='3'){
+            sn.removeClass('hide');
+        }
+    });
+    //按钮绑定点击事件，按条件查询数据并展示到页面上
+    $("#list-button").on('click',function () {
+        var contition = list_conditon.val();
+        var depart = $("#depart-select").val();
+        var classes = $("#class-select").val();
+        var sn_number = $("#sn").val();
+        var i = 1;
+        $.ajax({
+            url:"/index/maintaininfo/",
+            type:'post',
+            data:{
+                "condition":contition,
+                'depart':depart,
+                'classes':classes,
+                "sn":sn_number,
+            },
+            success:function (data) {
+                if(data.status){
+                    $("tbody").html('');
+                    $.each(data.msg,function (k,v) {
+                        console.log(v);
+                        var tbody = '<tr><td>'+i+'</td><td>'+v['classes_id']+'</td><td>'+v['depart_id']+'</td><td>'+v['name']+'</td><td>'+v['SN']+'</td><td>'+v['date']+'</td><td>'+v['error_description']+'</td><td>'+v['service_type']+'</td><td>'+v['service_result']+'</td><td>'+v['service_cost']+'</td></tr>';
+                        $("tbody").append(tbody);
+                        i += 1;
+                    })
+                }
+            }
+        })
+
+    })
+
+
+    </script>
+{% endblock %}
+{% block title %}
+设备维修信息
+{% endblock %}
